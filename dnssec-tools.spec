@@ -3,9 +3,9 @@ Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
 Version:	1.11
-Release:	2
+Release:	3
 License:	BSD
-Group:		Applications/Network
+Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
 # Source0-md5:	938bcb779dd443b6dc20330a0c0b2827
 Patch0:		%{name}-link.patch
@@ -97,7 +97,6 @@ Moduły Perla wspierające DNSSEC.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -258,6 +257,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorarch}/auto/Net/DNS/SEC/Validator
 %{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.so
+%dir %{perl_vendorarch}/auto/Net/addrinfo
 %{perl_vendorarch}/auto/Net/addrinfo/addrinfo.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/addrinfo/addrinfo.so
 %{perl_vendorlib}/Net/DNS/SEC/Tools
