@@ -1,0 +1,11 @@
+--- dnssec-tools-1.12/tools/modules/Net-DNS-SEC-Validator/Validator.xs.orig	2011-06-24 20:41:27.000000000 +0200
++++ dnssec-tools-1.12/tools/modules/Net-DNS-SEC-Validator/Validator.xs	2012-02-02 17:32:04.869246774 +0100
+@@ -14,7 +14,7 @@
+ #include "perl.h"
+ #include "XSUB.h"
+ 
+-#include "validator-config.h"
++#include "validator/validator-config.h"
+ #include "validator/resolver.h"
+ #include "validator/validator.h"
+ 
