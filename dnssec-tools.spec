@@ -2,14 +2,13 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	1.12
+Version:	1.12.1
 Release:	1
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	4008ac10351c1d7b421d36d233ab0dfa
+# Source0-md5:	d2737d1de1d59440290ec7aebf10b26f
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-inc.patch
 URL:		http://www.dnssec-tools.org/
 BuildRequires:	openssl-devel
 BuildRequires:	perl-ExtUtils-MakeMaker
@@ -86,7 +85,6 @@ Moduły Perla wspierające DNSSEC.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %configure \
