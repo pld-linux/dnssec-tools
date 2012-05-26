@@ -2,12 +2,12 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	1.12.1
+Version:	1.12.2
 Release:	1
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	d2737d1de1d59440290ec7aebf10b26f
+# Source0-md5:	78bcc945cd7c24c3a55f81661cacc441
 Patch0:		%{name}-link.patch
 URL:		http://www.dnssec-tools.org/
 BuildRequires:	openssl-devel
