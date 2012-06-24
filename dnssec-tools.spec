@@ -2,12 +2,12 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	1.12.2
+Version:	1.13
 Release:	1
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	78bcc945cd7c24c3a55f81661cacc441
+# Source0-md5:	beb4d59c49a00799ec1dfbbd5c97a8a0
 Patch0:		%{name}-link.patch
 URL:		http://www.dnssec-tools.org/
 BuildRequires:	openssl-devel
@@ -101,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT%{perl_vendorarch}/auto -name .packlist | xargs -r %{__rm}
+# bugfix
+%{__mv} $RPM_BUILD_ROOT%{_mandir}/man1/{dt-,}libval_check_conf.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -113,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/blinkenlights
 %attr(755,root,root) %{_bindir}/bubbles
+%attr(755,root,root) %{_bindir}/buildrealms
+%attr(755,root,root) %{_bindir}/check-zone-expiration
 %attr(755,root,root) %{_bindir}/cleanarch
 %attr(755,root,root) %{_bindir}/cleankrf
 %attr(755,root,root) %{_bindir}/convertar
@@ -120,30 +124,39 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/donuts
 %attr(755,root,root) %{_bindir}/donutsd
 %attr(755,root,root) %{_bindir}/drawvalmap
+%attr(755,root,root) %{_bindir}/dt-getaddr
+%attr(755,root,root) %{_bindir}/dt-gethost
+%attr(755,root,root) %{_bindir}/dt-getname
+%attr(755,root,root) %{_bindir}/dt-getquery
+%attr(755,root,root) %{_bindir}/dt-getrrset
+%attr(755,root,root) %{_bindir}/dt-validate
 %attr(755,root,root) %{_bindir}/dtck
 %attr(755,root,root) %{_bindir}/dtconf
 %attr(755,root,root) %{_bindir}/dtconfchk
 %attr(755,root,root) %{_bindir}/dtdefs
 %attr(755,root,root) %{_bindir}/dtinitconf
+%attr(755,root,root) %{_bindir}/dtrealms
 %attr(755,root,root) %{_bindir}/expchk
 %attr(755,root,root) %{_bindir}/fixkrf
 %attr(755,root,root) %{_bindir}/genkrf
-%attr(755,root,root) %{_bindir}/getaddr
 %attr(755,root,root) %{_bindir}/getdnskeys
 %attr(755,root,root) %{_bindir}/getds
-%attr(755,root,root) %{_bindir}/gethost
-%attr(755,root,root) %{_bindir}/getname
-%attr(755,root,root) %{_bindir}/getquery
-%attr(755,root,root) %{_bindir}/getrrset
+%attr(755,root,root) %{_bindir}/grandvizier
 %attr(755,root,root) %{_bindir}/keyarch
+%attr(755,root,root) %{_bindir}/keymod
 %attr(755,root,root) %{_bindir}/krfcheck
 %attr(755,root,root) %{_bindir}/libval_check_conf
 %attr(755,root,root) %{_bindir}/lights
 %attr(755,root,root) %{_bindir}/lsdnssec
 %attr(755,root,root) %{_bindir}/lskrf
+%attr(755,root,root) %{_bindir}/lsrealm
 %attr(755,root,root) %{_bindir}/lsroll
 %attr(755,root,root) %{_bindir}/maketestzone
 %attr(755,root,root) %{_bindir}/mapper
+%attr(755,root,root) %{_bindir}/realmchk
+%attr(755,root,root) %{_bindir}/realmctl
+%attr(755,root,root) %{_bindir}/realminit
+%attr(755,root,root) %{_bindir}/realmset
 %attr(755,root,root) %{_bindir}/rollchk
 %attr(755,root,root) %{_bindir}/rollctl
 %attr(755,root,root) %{_bindir}/rollerd
@@ -155,14 +168,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tachk
 %attr(755,root,root) %{_bindir}/timetrans
 %attr(755,root,root) %{_bindir}/trustman
-%attr(755,root,root) %{_bindir}/validate
 %attr(755,root,root) %{_bindir}/zonesigner
 %dir %{_sysconfdir}/dnssec-tools
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dnssec-tools/dnssec-tools.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dnssec-tools/validator-testcases
 %{_datadir}/%{name}
 %{_mandir}/man1/blinkenlights.1p*
+%{_mandir}/man1/buildrealms.1p*
 %{_mandir}/man1/bubbles.1p*
+%{_mandir}/man1/check-zone-expiration.1p*
 %{_mandir}/man1/cleanarch.1p*
 %{_mandir}/man1/cleankrf.1p*
 %{_mandir}/man1/convertar.1p*
@@ -171,30 +185,39 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/donuts.1p*
 %{_mandir}/man1/donutsd.1p*
 %{_mandir}/man1/drawvalmap.1p*
+%{_mandir}/man1/dt-getaddr.1*
+%{_mandir}/man1/dt-gethost.1*
+%{_mandir}/man1/dt-getname.1*
+%{_mandir}/man1/dt-getquery.1*
+%{_mandir}/man1/dt-getrrset.1*
+%{_mandir}/man1/dt-validate.1*
 %{_mandir}/man1/dtck.1p*
 %{_mandir}/man1/dtconf.1p*
 %{_mandir}/man1/dtconfchk.1p*
 %{_mandir}/man1/dtdefs.1p*
 %{_mandir}/man1/dtinitconf.1p*
+%{_mandir}/man1/dtrealms.1p*
 %{_mandir}/man1/expchk.1p*
 %{_mandir}/man1/fixkrf.1p*
 %{_mandir}/man1/genkrf.1p*
-%{_mandir}/man1/getaddr.1*
 %{_mandir}/man1/getdnskeys.1p*
 %{_mandir}/man1/getds.1p*
-%{_mandir}/man1/gethost.1*
-%{_mandir}/man1/getname.1*
-%{_mandir}/man1/getquery.1*
-%{_mandir}/man1/getrrset.1*
+%{_mandir}/man1/grandvizier.1p*
 %{_mandir}/man1/keyarch.1p*
+%{_mandir}/man1/keymod.1p*
 %{_mandir}/man1/krfcheck.1p*
 %{_mandir}/man1/libval_check_conf.1*
 %{_mandir}/man1/lights.1p*
 %{_mandir}/man1/lsdnssec.1p*
 %{_mandir}/man1/lskrf.1p*
+%{_mandir}/man1/lsrealm.1p*
 %{_mandir}/man1/lsroll.1p*
 %{_mandir}/man1/maketestzone.1p*
 %{_mandir}/man1/mapper.1p*
+%{_mandir}/man1/realmchk.1p*
+%{_mandir}/man1/realmctl.1p*
+%{_mandir}/man1/realminit.1p*
+%{_mandir}/man1/realmset.1p*
 %{_mandir}/man1/rollchk.1p*
 %{_mandir}/man1/rollctl.1p*
 %{_mandir}/man1/rollerd.1p*
@@ -206,7 +229,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/tachk.1p*
 %{_mandir}/man1/timetrans.1p*
 %{_mandir}/man1/trustman.1p*
-%{_mandir}/man1/validate.1*
 %{_mandir}/man1/zonesigner.1p*
 
 %files libs
