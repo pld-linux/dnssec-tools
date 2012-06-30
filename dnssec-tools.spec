@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	qt	# Qt-based GUI tools
+#
 %include	/usr/lib/rpm/macros.perl
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
@@ -9,6 +13,7 @@ Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
 # Source0-md5:	beb4d59c49a00799ec1dfbbd5c97a8a0
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-qt.patch
 URL:		http://www.dnssec-tools.org/
 BuildRequires:	openssl-devel
 BuildRequires:	perl-ExtUtils-MakeMaker
@@ -18,6 +23,15 @@ BuildRequires:	perl-TimeDate
 BuildRequires:	perl-base
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
+%if %{with qt}
+BuildRequires:	QtCore-devel >= 4
+BuildRequires:	QtDeclarative-devel >= 4
+BuildRequires:	QtGui-devel >= 4
+BuildRequires:	QtNetwork-devel >= 4
+BuildRequires:	QtSvg-devel >= 4
+BuildRequires:	QtXml-devel >= 4
+BuildRequires:	qt4-qmake >= 4
+%endif
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	perl-%{name} = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -31,6 +45,20 @@ help ease the deployment of DNSSEC-related technologies.
 Celem projektu DNSSEC-Tools jest stworzenie zbioru narzędzi, łatek,
 aplikacji, wrapperów, rozszerzeń i wtyczek pomagających przy wdrażaniu
 technologii związanych z DNSSEC.
+
+%package gui
+Summary:	DNSSEC tools with GUI
+Summary(pl.UTF-8):	Narzędzia DNSSEC z GUI
+Group:		X11/Applications
+Requires:	%{name}-libs = %{version}-%{release}
+
+%description gui
+DNSSEC tools with Qt-based GUI: dnssec-check, dnssec-nodes,
+dnssec-system-tray and lookup.
+
+%description gui -l pl.UTF-8
+Narzędzia DNSSEC z opartym na Qt graficznym interfejsem użytkownika:
+dnssec-check, dnssec-nodes, dnssec-system-tray oraz lookup.
 
 %package libs
 Summary:	DNSSEC libraries
@@ -85,6 +113,7 @@ Moduły Perla wspierające DNSSEC.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure \
@@ -95,10 +124,30 @@ Moduły Perla wspierające DNSSEC.
 	--with-perl-build-args='INSTALLDIRS=vendor'
 %{__make}
 
+%if %{with qt}
+cd validator/apps
+for d in dnssec-check dnssec-nodes dnssec-system-tray lookup ; do
+	cd $d
+	qmake-qt4 \
+		QMAKE_CXX="%{__cxx}" \
+		QMAKE_CXXFLAGS_RELEASE="%{rpmcxxflags}" \
+		QMAKE_LFLAGS_RELEASE="%{rpmldflags}"
+	%{__make}
+	cd ..
+done
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%if %{with qt}
+for d in dnssec-check dnssec-nodes dnssec-system-tray lookup ; do
+	%{__make} install -C validator/apps/$d \
+		INSTALL_ROOT=$RPM_BUILD_ROOT
+done
+%endif
 
 find $RPM_BUILD_ROOT%{perl_vendorarch}/auto -name .packlist | xargs -r %{__rm}
 # bugfix
@@ -230,6 +279,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/timetrans.1p*
 %{_mandir}/man1/trustman.1p*
 %{_mandir}/man1/zonesigner.1p*
+
+%if %{with qt}
+%files gui
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/dnssec-check
+%attr(755,root,root) %{_bindir}/dnssec-nodes
+%attr(755,root,root) %{_bindir}/dnssec-system-tray
+%attr(755,root,root) %{_bindir}/lookup
+%{_desktopdir}/dnssec-check.desktop
+%{_desktopdir}/lookup.desktop
+%{_iconsdir}/hicolor/48x48/apps/lookup.png
+%{_iconsdir}/hicolor/64x64/apps/dnssec-check.png
+%{_pixmapsdir}/lookup.xpm
+%endif
 
 %files libs
 %defattr(644,root,root,755)
