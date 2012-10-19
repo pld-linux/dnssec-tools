@@ -6,12 +6,12 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	1.13
+Version:	1.14
 Release:	1
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	beb4d59c49a00799ec1dfbbd5c97a8a0
+# Source0-md5:	ae5b854ecc586f61eba890e3b430de08
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-qt.patch
 URL:		http://www.dnssec-tools.org/
@@ -173,6 +173,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/donuts
 %attr(755,root,root) %{_bindir}/donutsd
 %attr(755,root,root) %{_bindir}/drawvalmap
+%attr(755,root,root) %{_bindir}/dt-danechk
 %attr(755,root,root) %{_bindir}/dt-getaddr
 %attr(755,root,root) %{_bindir}/dt-gethost
 %attr(755,root,root) %{_bindir}/dt-getname
@@ -297,11 +298,11 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libsres.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsres.so.12
+%attr(755,root,root) %ghost %{_libdir}/libsres.so.13
 %attr(755,root,root) %{_libdir}/libval-threads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libval-threads.so.12
+%attr(755,root,root) %ghost %{_libdir}/libval-threads.so.13
 %attr(755,root,root) %{_libdir}/libval_shim.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libval_shim.so.12
+%attr(755,root,root) %ghost %{_libdir}/libval_shim.so.13
 
 %files devel
 %defattr(644,root,root,755)
