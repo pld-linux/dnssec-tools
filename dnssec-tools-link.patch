@@ -16,7 +16,7 @@
  
  $(LIBVAL): $(LOBJ)
 -	$(LIBTOOLLD) -o $@ $(LOBJ)
-+	$(LIBTOOLLD) -o $@ $(LOBJ) ../libsres/libsres.la -lcrypto -pthread
++	$(LIBTOOLLD) -o $@ $(LOBJ) ../libsres/libsres.la -lssl -lcrypto -pthread
  
  install:
  	$(MKPATH) $(DESTDIR)/$(libdir)

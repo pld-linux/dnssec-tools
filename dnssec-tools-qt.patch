@@ -1,13 +1,3 @@
---- dnssec-tools-1.14/validator/apps/dnssec-check/mainwindow.cpp.orig	2012-06-21 22:10:13.000000000 +0200
-+++ dnssec-tools-1.14/validator/apps/dnssec-check/mainwindow.cpp	2012-06-25 21:15:43.352058436 +0200
-@@ -372,7 +372,6 @@
-     }
- 
-     accessURL.addQueryItem("locationDescription", locationDescription);
--    accessURL.addQueryItem("1.14");
- 
-     if (!m_manager) {
-         m_manager = new QNetworkAccessManager();
 --- dnssec-tools-1.13/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri.orig	2012-02-04 01:50:50.000000000 +0100
 +++ dnssec-tools-1.13/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri	2012-06-27 19:03:22.065139970 +0200
 @@ -113,7 +113,7 @@
@@ -51,13 +41,13 @@
  TARGET=dnssec-system-tray
  
  HEADERS       = dnssec-system-tray.h \
---- dnssec-tools-1.13/validator/apps/lookup/src/src.pro.orig	2012-06-21 22:02:39.000000000 +0200
-+++ dnssec-tools-1.13/validator/apps/lookup/src/src.pro	2012-06-26 18:43:52.315481592 +0200
+--- dnssec-tools-2.0/validator/apps/lookup/src/src.pro.orig	2013-02-20 23:33:14.000000000 +0100
++++ dnssec-tools-2.0/validator/apps/lookup/src/src.pro	2013-03-01 22:10:35.688684940 +0100
 @@ -11,7 +11,7 @@
  INCLUDEPATH += /home/hardaker/src/dnssec/dnssec-tools.git/dnssec-tools/validator/include
  
  isEmpty(ANDROID_PLATFORM) {
--    LIBS        += -lval-threads -lsres -lnsl -lcrypto -lpthread
+-    LIBS        += -lval-threads -lsres -lnsl -lssl -lcrypto -lpthread
 +    LIBS        += -L../../../libval/.libs -L../../../libsres/.libs -lval-threads -lsres -lcrypto -lpthread
  } else {
      LIBS        += -L/opt/android-external-openssl/lib/

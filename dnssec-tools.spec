@@ -6,12 +6,12 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	1.14
+Version:	2.0
 Release:	1
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	ae5b854ecc586f61eba890e3b430de08
+# Source0-md5:	b738664499c150cf81a1c4307ff07e0f
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-qt.patch
 URL:		http://www.dnssec-tools.org/
@@ -298,11 +298,11 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libsres.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsres.so.13
+%attr(755,root,root) %ghost %{_libdir}/libsres.so.14
 %attr(755,root,root) %{_libdir}/libval-threads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libval-threads.so.13
+%attr(755,root,root) %ghost %{_libdir}/libval-threads.so.14
 %attr(755,root,root) %{_libdir}/libval_shim.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libval_shim.so.13
+%attr(755,root,root) %ghost %{_libdir}/libval_shim.so.14
 
 %files devel
 %defattr(644,root,root,755)
