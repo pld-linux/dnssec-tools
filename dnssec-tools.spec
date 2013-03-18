@@ -1,3 +1,5 @@
+# TODO:
+#	- fix linking, it should link with just built, not with system, libs
 #
 # Conditional build:
 %bcond_without	qt	# Qt-based GUI tools
