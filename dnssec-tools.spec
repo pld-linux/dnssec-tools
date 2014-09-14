@@ -343,10 +343,8 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorarch}/Net/addrinfo.pm
 %dir %{perl_vendorarch}/auto/Net/DNS/SEC
 %dir %{perl_vendorarch}/auto/Net/DNS/SEC/Validator
-%{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.so
 %dir %{perl_vendorarch}/auto/Net/addrinfo
-%{perl_vendorarch}/auto/Net/addrinfo/addrinfo.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/addrinfo/addrinfo.so
 %{perl_vendorlib}/Net/DNS/SEC/Tools
 %{_mandir}/man3/Net::DNS::SEC::Tools::*.3pm*
