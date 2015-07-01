@@ -8,12 +8,12 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	2.0
-Release:	4
+Version:	2.1
+Release:	1
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	b738664499c150cf81a1c4307ff07e0f
+# Source0-md5:	b4c76b325c380780682a548730d3e09a
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-qt.patch
 URL:		http://www.dnssec-tools.org/
@@ -26,13 +26,16 @@ BuildRequires:	perl-base
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
 %if %{with qt}
-BuildRequires:	QtCore-devel >= 4
-BuildRequires:	QtDeclarative-devel >= 4
-BuildRequires:	QtGui-devel >= 4
-BuildRequires:	QtNetwork-devel >= 4
-BuildRequires:	QtSvg-devel >= 4
-BuildRequires:	QtXml-devel >= 4
-BuildRequires:	qt4-qmake >= 4
+BuildRequires:	Qt5Core-devel >= 5
+BuildRequires:	Qt5Declarative-devel >= 5
+BuildRequires:	Qt5Gui-devel >= 5
+BuildRequires:	Qt5Network-devel >= 5
+BuildRequires:	Qt5Qml-devel >= 5
+BuildRequires:	Qt5Quick-devel >= 5
+BuildRequires:	Qt5Svg-devel >= 5
+BuildRequires:	Qt5Widgets-devel >= 5
+BuildRequires:	Qt5Xml-devel >= 5
+BuildRequires:	qt5-qmake >= 5
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	perl-%{name} = %{version}-%{release}
@@ -119,6 +122,7 @@ Moduły Perla wspierające DNSSEC.
 
 %build
 %configure \
+	ac_cv_lib_nsl_inet_ntop=no \
 	--disable-bind-checks \
 	--with-dlv \
 	--with-ipv6 \
@@ -130,7 +134,8 @@ Moduły Perla wspierające DNSSEC.
 cd validator/apps
 for d in dnssec-check dnssec-nodes dnssec-system-tray lookup ; do
 	cd $d
-	qmake-qt4 \
+	qmake-qt5 \
+		PREFIX=%{_prefix} \
 		QMAKE_CXX="%{__cxx}" \
 		QMAKE_CXXFLAGS_RELEASE="%{rpmcxxflags}" \
 		QMAKE_LFLAGS_RELEASE="%{rpmldflags}"
@@ -147,13 +152,22 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with qt}
 for d in dnssec-check dnssec-nodes dnssec-system-tray lookup ; do
 	%{__make} install -C validator/apps/$d \
+		DESTDIR=$RPM_BUILD_ROOT \
 		INSTALL_ROOT=$RPM_BUILD_ROOT
 done
+
+# omitted from make install
+install -Dp validator/apps/dnssec-check/images/dnssec-check-32x32.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/apps/dnssec-check.png
+install -Dp validator/apps/dnssec-check/images/dnssec-check-48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/apps/dnssec-check.png
+install -Dp validator/apps/dnssec-check/images/dnssec-check-64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/apps/dnssec-check.png
+install -Dp validator/apps/dnssec-check/images/dnssec-check-512.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/512x512/apps/dnssec-check.png
+install -Dp validator/apps/dnssec-check/images/dnssec-check.svg $RPM_BUILD_ROOT%{_iconsdir}/hicolor/scalable/apps/dnssec-check.svg
+sed -e 's,^Exec=.*,Exec=%{_bindir}/dnssec-check,' validator/apps/dnssec-check/dnssec-check.desktop >$RPM_BUILD_ROOT%{_desktopdir}/dnssec-check.desktop
 %endif
 
+%{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/Net/DNS/SEC/examples.pl \
+	$RPM_BUILD_ROOT%{_mandir}/man3/Net::DNS::SEC::examples.3pm
 find $RPM_BUILD_ROOT%{perl_vendorarch}/auto -name .packlist | xargs -r %{__rm}
-# bugfix
-%{__mv} $RPM_BUILD_ROOT%{_mandir}/man1/{dt-,}libval_check_conf.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -181,6 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/dt-getname
 %attr(755,root,root) %{_bindir}/dt-getquery
 %attr(755,root,root) %{_bindir}/dt-getrrset
+%attr(755,root,root) %{_bindir}/dt-libval_check_conf
 %attr(755,root,root) %{_bindir}/dt-validate
 %attr(755,root,root) %{_bindir}/dtck
 %attr(755,root,root) %{_bindir}/dtconf
@@ -197,7 +212,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/keyarch
 %attr(755,root,root) %{_bindir}/keymod
 %attr(755,root,root) %{_bindir}/krfcheck
-%attr(755,root,root) %{_bindir}/libval_check_conf
 %attr(755,root,root) %{_bindir}/lights
 %attr(755,root,root) %{_bindir}/lsdnssec
 %attr(755,root,root) %{_bindir}/lskrf
@@ -237,6 +251,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/donuts.1p*
 %{_mandir}/man1/donutsd.1p*
 %{_mandir}/man1/drawvalmap.1p*
+%{_mandir}/man1/dt-danechk.1*
+%{_mandir}/man1/dt-libval_check_conf.1*
 %{_mandir}/man1/dt-getaddr.1*
 %{_mandir}/man1/dt-gethost.1*
 %{_mandir}/man1/dt-getname.1*
@@ -258,7 +274,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/keyarch.1p*
 %{_mandir}/man1/keymod.1p*
 %{_mandir}/man1/krfcheck.1p*
-%{_mandir}/man1/libval_check_conf.1*
 %{_mandir}/man1/lights.1p*
 %{_mandir}/man1/lsdnssec.1p*
 %{_mandir}/man1/lskrf.1p*
@@ -291,20 +306,22 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/dnssec-system-tray
 %attr(755,root,root) %{_bindir}/lookup
 %{_desktopdir}/dnssec-check.desktop
+%{_desktopdir}/dnssec-nodes.desktop
 %{_desktopdir}/lookup.desktop
 %{_iconsdir}/hicolor/48x48/apps/lookup.png
-%{_iconsdir}/hicolor/64x64/apps/dnssec-check.png
+%{_iconsdir}/hicolor/*x*/apps/dnssec-check.png
+%{_iconsdir}/hicolor/scalable/apps/dnssec-check.svg
 %{_pixmapsdir}/lookup.xpm
 %endif
 
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libsres.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsres.so.14
+%attr(755,root,root) %ghost %{_libdir}/libsres.so.15
 %attr(755,root,root) %{_libdir}/libval-threads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libval-threads.so.14
+%attr(755,root,root) %ghost %{_libdir}/libval-threads.so.15
 %attr(755,root,root) %{_libdir}/libval_shim.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libval_shim.so.14
+%attr(755,root,root) %ghost %{_libdir}/libval_shim.so.15
 
 %files devel
 %defattr(644,root,root,755)
@@ -320,8 +337,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/dnsval_conf*.3*
 %{_mandir}/man3/libsres.3*
 %{_mandir}/man3/libval.3*
+%{_mandir}/man3/libval_async.3*
 %{_mandir}/man3/libval_shim.3*
 %{_mandir}/man3/p_ac_status.3*
+%{_mandir}/man3/p_dane_error.3*
 %{_mandir}/man3/p_val_status.3*
 %{_mandir}/man3/resolv_conf_*.3*
 %{_mandir}/man3/root_hints_*.3*
