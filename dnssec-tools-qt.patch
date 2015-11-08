@@ -77,40 +77,6 @@
    iconxpm.files += ../data/maemo/$${TARGET}.xpm
  
    icon26.path = $$DATADIR/icons/hicolor/26x26/apps
---- dnssec-tools-2.1/validator/apps/dnssec-check/DnssecCheckVersion.h.orig	2014-09-05 19:19:50.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-check/DnssecCheckVersion.h	2015-06-28 18:52:38.019349227 +0200
-@@ -1,6 +1,6 @@
- #ifndef DNSSECCHECKVERSION_H
- #define DNSSECCHECKVERSION_H
- 
--#define .1"
-+#define DNSSEC_CHECK_VERSION "2.1"
- 
- #endif // DNSSECCHECKVERSION_H
---- dnssec-tools-2.1/validator/apps/dnssec-check/SubmitDialog.h.orig	2011-10-10 23:14:45.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-check/SubmitDialog.h	2015-06-28 20:54:41.575708553 +0200
-@@ -2,7 +2,7 @@
- #define SUBMITDIALOG_H
- 
- #include <QDialog>
--#include <QtGui/QVBoxLayout>
--#include <QtGui/QLineEdit>
-+#include <QtWidgets/QVBoxLayout>
-+#include <QtWidgets/QLineEdit>
- 
- class SubmitDialog : public QDialog
---- dnssec-tools-2.1/validator/apps/dnssec-check/SubmitDialog.cpp.orig	2011-10-10 23:14:45.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-check/SubmitDialog.cpp	2015-06-28 21:05:45.832347343 +0200
-@@ -1,7 +1,7 @@
- #include "SubmitDialog.h"
- 
--#include <QtGui/QLabel>
--#include <QtGui/QDialogButtonBox>
-+#include <QtWidgets/QLabel>
-+#include <QtWidgets/QDialogButtonBox>
- 
- SubmitDialog::SubmitDialog(QWidget *parent) :
-     QDialog(parent)
 --- dnssec-tools-2.1/validator/apps/dnssec-nodes/node.h.orig	2013-02-15 02:22:03.000000000 +0100
 +++ dnssec-tools-2.1/validator/apps/dnssec-nodes/node.h	2015-06-28 21:12:46.145663038 +0200
 @@ -41,7 +41,7 @@
