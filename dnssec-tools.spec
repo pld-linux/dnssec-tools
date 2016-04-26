@@ -9,7 +9,7 @@ Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
 Version:	2.2
-Release:	2
+Release:	3
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
@@ -128,7 +128,7 @@ Moduły Perla wspierające DNSSEC.
 	--with-ipv6 \
 	--with-nsec3 \
 	--with-perl-build-args='INSTALLDIRS=vendor'
-%{__make}
+%{__make} -j1
 
 %if %{with qt}
 cd validator/apps
@@ -168,6 +168,7 @@ sed -e 's,^Exec=.*,Exec=%{_bindir}/dnssec-check,' validator/apps/dnssec-check/dn
 %{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/Net/DNS/SEC/examples.pl \
 	$RPM_BUILD_ROOT%{_mandir}/man3/Net::DNS::SEC::examples.3pm
 find $RPM_BUILD_ROOT%{perl_vendorarch}/auto -name .packlist | xargs -r %{__rm}
+find $RPM_BUILD_ROOT%{perl_vendorarch} -name '*.pod' | xargs -r %{__rm}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -354,15 +355,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n perl-%{name}
 %defattr(644,root,root,755)
-%dir %{perl_vendorarch}/Net/DNS/SEC
-%{perl_vendorarch}/Net/DNS/SEC/Tools
-%{perl_vendorarch}/Net/DNS/SEC/Validator.pm
-%{perl_vendorarch}/Net/DNS/SEC/defines.pl
-%{perl_vendorarch}/Net/DNS/ZoneFile
+%{perl_vendorarch}/Net/DNS
 %{perl_vendorarch}/Net/addrinfo.pm
-%dir %{perl_vendorarch}/auto/Net/DNS/SEC
-%dir %{perl_vendorarch}/auto/Net/DNS/SEC/Validator
-%attr(755,root,root) %{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.so
+%{perl_vendorarch}/auto/Net/DNS
 %dir %{perl_vendorarch}/auto/Net/addrinfo
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/addrinfo/addrinfo.so
 %{perl_vendorlib}/Net/DNS/SEC/Tools
