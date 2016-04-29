@@ -355,9 +355,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n perl-%{name}
 %defattr(644,root,root,755)
-%{perl_vendorarch}/Net/DNS
+%dir %{perl_vendorarch}/Net/DNS
+%dir %{perl_vendorarch}/Net/DNS/SEC
+%{perl_vendorarch}/Net/DNS/SEC/Tools
+%{perl_vendorarch}/Net/DNS/SEC/Validator.pm
+%{perl_vendorarch}/Net/DNS/SEC/defines.pl
+%{perl_vendorarch}/Net/DNS/ZoneFile
 %{perl_vendorarch}/Net/addrinfo.pm
-%{perl_vendorarch}/auto/Net/DNS
+%dir %{perl_vendorarch}/auto/Net/DNS
+%dir %{perl_vendorarch}/auto/Net/DNS/SEC
+%{perl_vendorarch}/auto/Net/DNS/SEC/Tools
+%dir %{perl_vendorarch}/auto/Net/DNS/SEC/Validator
+%{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.so
 %dir %{perl_vendorarch}/auto/Net/addrinfo
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/addrinfo/addrinfo.so
 %{perl_vendorlib}/Net/DNS/SEC/Tools
