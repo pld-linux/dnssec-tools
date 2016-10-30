@@ -9,7 +9,7 @@ Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
 Version:	2.2
-Release:	4
+Release:	5
 License:	BSD
 Group:		Applications/Networking
 Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
