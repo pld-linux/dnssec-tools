@@ -8,15 +8,15 @@
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
-Version:	2.2
-Release:	10
+Version:	2.2.3
+Release:	1
 License:	BSD
 Group:		Applications/Networking
-Source0:	http://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
-# Source0-md5:	ceb39b4d2376bfc4aa22f73846c11789
+Source0:	https://github.com/DNSSEC-Tools/DNSSEC-Tools/archive/dnssec-tools-2.2.3.tar.gz
+# Source0-md5:	235bfa9bf059b2f5502db2877444646b
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-qt.patch
-Patch2:		glibc-2.25.patch
+Patch2:		build.patch
 URL:		http://www.dnssec-tools.org/
 BuildRequires:	openssl-devel
 BuildRequires:	perl-ExtUtils-MakeMaker
@@ -117,12 +117,14 @@ Perl modules supporting DNSSEC.
 Moduły Perla wspierające DNSSEC.
 
 %prep
-%setup -q
+%setup -q -n DNSSEC-Tools-dnssec-tools-%{version}
+cd dnssec-tools
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
 %build
+cd dnssec-tools
 %configure \
 	ac_cv_lib_nsl_inet_ntop=no \
 	--disable-bind-checks \
@@ -148,6 +150,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+cd dnssec-tools
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -180,7 +183,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING ChangeLog NEWS README
+%doc dnssec-tools/{COPYING,ChangeLog,NEWS,README.md}
 %attr(755,root,root) %{_bindir}/blinkenlights
 %attr(755,root,root) %{_bindir}/bubbles
 %attr(755,root,root) %{_bindir}/buildrealms

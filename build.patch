@@ -1,0 +1,10 @@
+--- dnssec-tools/validator/apps/dnssec-check/DnssecCheckVersion.h~	2018-08-30 00:25:30.000000000 +0200
++++ dnssec-tools/validator/apps/dnssec-check/DnssecCheckVersion.h	2018-09-18 10:45:17.870124105 +0200
+@@ -1,6 +1,6 @@
+ #ifndef DNSSECCHECKVERSION_H
+ #define DNSSECCHECKVERSION_H
+ 
+-#define .2"
++#define DNSSEC_CHECK_VERSION "2.2"
+ 
+ #endif // DNSSECCHECKVERSION_H
