@@ -9,7 +9,7 @@ Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
 Version:	2.2.3
-Release:	1
+Release:	2
 License:	BSD
 Group:		Applications/Networking
 Source0:	https://github.com/DNSSEC-Tools/DNSSEC-Tools/archive/dnssec-tools-2.2.3.tar.gz
@@ -374,6 +374,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorarch}/auto/Net/DNS/SEC/Validator/Validator.so
 %dir %{perl_vendorarch}/auto/Net/addrinfo
 %attr(755,root,root) %{perl_vendorarch}/auto/Net/addrinfo/addrinfo.so
+%dir %{perl_vendorlib}/Net/DNS/SEC
 %{perl_vendorlib}/Net/DNS/SEC/Tools
 %{_mandir}/man3/Net::DNS::SEC::Tools::*.3pm*
 %{_mandir}/man3/Net::DNS::SEC::Validator.3pm*
