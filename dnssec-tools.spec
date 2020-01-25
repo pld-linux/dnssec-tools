@@ -4,7 +4,6 @@
 # Conditional build:
 %bcond_without	qt	# Qt-based GUI tools
 #
-%include	/usr/lib/rpm/macros.perl
 Summary:	DNSSEC tools
 Summary(pl.UTF-8):	Narzędzia DNSSEC
 Name:		dnssec-tools
