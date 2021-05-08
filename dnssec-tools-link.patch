@@ -1,5 +1,6 @@
---- dnssec-tools-1.9/validator/libsres/Makefile.in.orig	2009-04-17 17:38:24.000000000 +0200
-+++ dnssec-tools-1.9/validator/libsres/Makefile.in	2011-05-20 22:21:07.353636179 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/libsres/Makefile.in DNSSEC-Tools-dnssec-tools-2.2.3/validator/libsres/Makefile.in
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/libsres/Makefile.in	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/libsres/Makefile.in	2021-05-08 10:27:02.392411486 +0200
 @@ -63,7 +63,7 @@ clean:
  	$(RM) -rf $(LT_DIR)
  
@@ -8,10 +9,11 @@
 +	$(LIBTOOLLD) -o $@ $(LOBJ) -lcrypto
  
  install:
- 	$(MKPATH) $(DESTDIR)/$(libdir)
---- dnssec-tools-2.1/validator/libval/Makefile.in.orig	2015-06-28 16:43:43.279673824 +0200
-+++ dnssec-tools-2.1/validator/libval/Makefile.in	2015-06-28 17:25:10.899569429 +0200
-@@ -65,7 +65,7 @@
+ 	$(MKPATH) $(DESTDIR)$(libdir)
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/libval/Makefile.in DNSSEC-Tools-dnssec-tools-2.2.3/validator/libval/Makefile.in
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/libval/Makefile.in	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/libval/Makefile.in	2021-05-08 10:27:02.392411486 +0200
+@@ -65,7 +65,7 @@ clean:
  	$(RM) -rf $(LT_DIR)
  
  $(LIBVAL): $(LOBJ)

@@ -1,6 +1,7 @@
---- dnssec-tools-2.1/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri.orig	2015-06-28 17:29:18.722892362 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri	2015-06-28 18:09:04.399458910 +0200
-@@ -155,7 +155,7 @@
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-check/qmlapplicationviewer/qmlapplicationviewer.pri	2021-05-08 10:27:04.212451216 +0200
+@@ -155,7 +155,7 @@ android-no-sdk {
      !isEmpty(target.path) {
          installPrefix = $${target.path}
      } else {
@@ -9,226 +10,9 @@
      }
      for(deploymentfolder, DEPLOYMENTFOLDERS) {
          item = item$${deploymentfolder}
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/dnssec-nodes.pro.orig	2014-08-15 22:20:16.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/dnssec-nodes.pro	2015-06-28 18:13:19.206114883 +0200
-@@ -1,3 +1,4 @@
-+PREFIX=/usr
- HEADERS += \
-         edge.h \
-         node.h \
-@@ -70,7 +71,7 @@
- isEmpty(ANDROID_PLATFORM) {
-     QMAKE_LIBDIR     += ../../libval/.libs
-     QMAKE_LIBDIR     += ../../libsres/.libs
--    LIBS        += -lval-threads -lsres -lnsl -lcrypto -lssl -lpthread
-+    LIBS        += -lval-threads -lsres -lcrypto -lpthread
-     contains(MEEGO_EDITION,harmattan): {
-         QMAKE_LIBDIR += /scratchbox/users/hardaker/targets/HARMATTAN_ARMEL/usr/lib
-     } else:osx {
-@@ -93,8 +94,6 @@
- # path to the harmattan libraries
- contains(MEEGO_EDITION,harmattan): {
-     LIBS += -L/scratchbox/users/hardaker/targets/HARMATTAN_ARMEL/usr/lib
--} else {
--    LIBS += -L/usr/local/lib
- }
- 
- QT += network widgets core
---- dnssec-tools-1.13/validator/apps/dnssec-system-tray/dnssec-system-tray.pro.orig	2011-10-25 22:45:08.000000000 +0200
-+++ dnssec-tools-1.13/validator/apps/dnssec-system-tray/dnssec-system-tray.pro	2012-06-30 12:17:05.175285379 +0200
-@@ -1,3 +1,4 @@
-+PREFIX=/usr
- TARGET=dnssec-system-tray
- 
- HEADERS       = dnssec-system-tray.h \
---- dnssec-tools-2.0/validator/apps/lookup/src/src.pro.orig	2013-02-20 23:33:14.000000000 +0100
-+++ dnssec-tools-2.0/validator/apps/lookup/src/src.pro	2013-03-01 22:10:35.688684940 +0100
-@@ -11,7 +11,7 @@
- INCLUDEPATH += /home/hardaker/src/dnssec/dnssec-tools.git/dnssec-tools/validator/include
- 
- isEmpty(ANDROID_PLATFORM) {
--    LIBS        += -lval-threads -lsres -lnsl -lssl -lcrypto -lpthread
-+    LIBS        += -L../../../libval/.libs -L../../../libsres/.libs -lval-threads -lsres -lcrypto -lpthread
- } else {
-     LIBS        += -L/opt/android-external-openssl/lib/
-     LIBS        += -L/root/necessitas/android-ndk-r5c/platforms/android-4/arch-arm/usr/lib/
-@@ -63,7 +63,7 @@
- unix {
-     #VARIABLES
-     isEmpty(PREFIX) {
--        PREFIX = /usr/local
-+        PREFIX = /usr
-     }
- 
- BINDIR = $$PREFIX/bin
-@@ -77,13 +77,13 @@
- 
-   target.path =$$BINDIR
- 
--  desktop.path = $$DATADIR/applications/hildon
-+  desktop.path = $$DATADIR/applications
-   desktop.files += $${TARGET}.desktop
- 
-   service.path = $$DATADIR/dbus-1/services
-   service.files += $${TARGET}.service
- 
--  iconxpm.path = $$DATADIR/pixmap
-+  iconxpm.path = $$DATADIR/pixmaps
-   iconxpm.files += ../data/maemo/$${TARGET}.xpm
- 
-   icon26.path = $$DATADIR/icons/hicolor/26x26/apps
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/node.h.orig	2013-02-15 02:22:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/node.h	2015-06-28 21:12:46.145663038 +0200
-@@ -41,7 +41,7 @@
- #ifndef NODE_H
- #define NODE_H
- 
--#include <QtGui/QGraphicsItem>
-+#include <QtWidgets/QGraphicsItem>
- #include <QtCore/QList>
- #include <QtCore/QSet>
- 
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/TypeMenu.h.orig	2011-10-06 07:54:18.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/TypeMenu.h	2015-06-28 21:29:20.215621321 +0200
-@@ -2,9 +2,9 @@
- #define TYPEMENU_H
- 
- #include <QObject>
--#include <QtGui/QMenu>
-+#include <QtWidgets/QMenu>
- #include <QtCore/QSignalMapper>
--#include <QtGui/QPushButton>
-+#include <QtWidgets/QPushButton>
- 
- class TypeMenu : public QObject
- {
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/MainWindow.h.orig	2013-02-14 15:41:49.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/MainWindow.h	2015-06-29 16:45:19.232710599 +0200
-@@ -2,10 +2,10 @@
- #define MAINWINDOW_H
- 
- #include <QMainWindow>
--#include <QtGui/QVBoxLayout>
--#include <QtGui/QLineEdit>
--#include <QtGui/QMenuBar>
--#include <QtGui/QTabWidget>
-+#include <QtWidgets/QVBoxLayout>
-+#include <QtWidgets/QLineEdit>
-+#include <QtWidgets/QMenuBar>
-+#include <QtWidgets/QTabWidget>
- 
- #include "graphwidget.h"
- #include "TypeMenu.h"
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/DetailsViewer.h.orig	2012-10-11 23:01:57.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/DetailsViewer.h	2015-06-29 16:56:22.182682775 +0200
-@@ -3,11 +3,11 @@
- 
- #include <QDialog>
- #include <QObject>
--#include <QtGui/QVBoxLayout>
--#include <QtGui/QDialogButtonBox>
-+#include <QtWidgets/QVBoxLayout>
-+#include <QtWidgets/QDialogButtonBox>
- #include <QtCore/QSignalMapper>
--#include <QtGui/QTabWidget>
--#include <QtGui/QTableWidgetItem>
-+#include <QtWidgets/QTabWidget>
-+#include <QtWidgets/QTableWidgetItem>
- #include "node.h"
- #include <QLabel>
- 
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/Filter.h.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/Filter.h	2015-06-29 17:03:45.735997496 +0200
-@@ -2,7 +2,7 @@
- #define FILTER_H
- 
- #include <QObject>
--#include <QtGui/QHBoxLayout>
-+#include <QtWidgets/QHBoxLayout>
- 
- #include "node.h"
- #include <qdebug.h>
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.h.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.h	2015-06-29 17:12:13.345976194 +0200
-@@ -5,7 +5,7 @@
- #include "node.h"
- 
- #include <QtCore/QSignalMapper>
--#include <QtGui/QPushButton>
-+#include <QtWidgets/QPushButton>
- 
- class DNSSECStatusFilter : public Filter
- {
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/TypeFilter.h.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/TypeFilter.h	2015-06-29 17:53:46.785871554 +0200
-@@ -4,7 +4,7 @@
- #include "Filter.h"
- #include "TypeMenu.h"
- 
--#include <QtGui/QPushButton>
-+#include <QtWidgets/QPushButton>
- #include <QtCore/QSignalMapper>
- 
- class TypeFilter : public Filter
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/NodeList.h.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/NodeList.h	2015-06-29 18:07:30.795836973 +0200
-@@ -10,7 +10,7 @@
- #include "Filters/Filter.h"
- #include "FilterEditorWindow.h"
- 
--#include <QtGui/QHBoxLayout>
-+#include <QtWidgets/QHBoxLayout>
- 
- class GraphWidget;
- class DNSData;
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/NodesPreferences.h.orig	2011-09-23 19:54:13.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/NodesPreferences.h	2015-06-29 18:42:27.702415642 +0200
-@@ -2,11 +2,11 @@
- #define NODESPREFERENCES_H
- 
- #include <QDialog>
--#include <QtGui/QVBoxLayout>
--#include <QtGui/QFormLayout>
--#include <QtGui/QSpinBox>
-+#include <QtWidgets/QVBoxLayout>
-+#include <QtWidgets/QFormLayout>
-+#include <QtWidgets/QSpinBox>
- #include <QtCore/QSettings>
--#include <QtGui/QCheckBox>
-+#include <QtWidgets/QCheckBox>
- 
- class NodesPreferences : public QDialog
- {
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/LogFilePicker.h.orig	2011-10-07 16:23:49.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/LogFilePicker.h	2015-06-29 19:20:40.992319401 +0200
-@@ -2,11 +2,11 @@
- #define LOGFILEPICKER_H
- 
- #include <QDialog>
--#include <QtGui/QHBoxLayout>
--#include <QtGui/QVBoxLayout>
--#include <QtGui/QLineEdit>
-+#include <QtWidgets/QHBoxLayout>
-+#include <QtWidgets/QVBoxLayout>
-+#include <QtWidgets/QLineEdit>
- #include <QtCore/QString>
--#include <QtGui/QCheckBox>
-+#include <QtWidgets/QCheckBox>
- 
- class LogFilePicker : public QDialog
- {
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/NodesPreferences.cpp.orig	2011-09-23 19:54:13.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/NodesPreferences.cpp	2015-06-29 19:30:12.122295433 +0200
-@@ -1,6 +1,6 @@
- #include "NodesPreferences.h"
- 
--#include <QtGui/QDialogButtonBox>
-+#include <QtWidgets/QDialogButtonBox>
- 
- NodesPreferences::NodesPreferences(QSettings *settings, QWidget *parent) :
-     QDialog(parent), m_settings(settings)
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/DetailsViewer.cpp.orig	2014-08-15 22:20:16.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/DetailsViewer.cpp	2015-06-29 20:04:58.995541190 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/DetailsViewer.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/DetailsViewer.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/DetailsViewer.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/DetailsViewer.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -1,17 +1,17 @@
  #include "DetailsViewer.h"
  
@@ -254,8 +38,43 @@
  
  #include "ValidateViewWidgetHolder.h"
  
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.cpp.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.cpp	2015-06-29 20:55:45.965413320 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/DetailsViewer.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/DetailsViewer.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/DetailsViewer.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/DetailsViewer.h	2021-05-08 10:27:04.212451216 +0200
+@@ -3,11 +3,11 @@
+ 
+ #include <QDialog>
+ #include <QObject>
+-#include <QtGui/QVBoxLayout>
+-#include <QtGui/QDialogButtonBox>
++#include <QtWidgets/QVBoxLayout>
++#include <QtWidgets/QDialogButtonBox>
+ #include <QtCore/QSignalMapper>
+-#include <QtGui/QTabWidget>
+-#include <QtGui/QTableWidgetItem>
++#include <QtWidgets/QTabWidget>
++#include <QtWidgets/QTableWidgetItem>
+ #include "node.h"
+ #include <QLabel>
+ 
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/FilterEditorWindow.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/FilterEditorWindow.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/FilterEditorWindow.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/FilterEditorWindow.cpp	2021-05-08 10:27:04.212451216 +0200
+@@ -1,8 +1,8 @@
+ #include "FilterEditorWindow.h"
+ 
+-#include <QtGui/QLabel>
+-#include <QtGui/QDialogButtonBox>
+-#include <QtGui/QGroupBox>
++#include <QtWidgets/QLabel>
++#include <QtWidgets/QDialogButtonBox>
++#include <QtWidgets/QGroupBox>
+ 
+ FilterEditorWindow::FilterEditorWindow(NodeList *nodeList, QWidget *parent) :
+     QDialog(parent), m_nodeList(nodeList)
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -1,7 +1,7 @@
  #include "DNSSECStatusFilter.h"
  
@@ -266,8 +85,33 @@
  
  DNSSECStatusFilter::DNSSECStatusFilter(int dnssecValitiy, bool requireAll)
      : Filter(), m_dnssecValidity(dnssecValitiy), m_requireAll(requireAll), m_mapper(), m_menuButton(0)
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/NameFilter.cpp.orig	2013-02-14 19:01:09.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/NameFilter.cpp	2015-06-29 21:30:57.028658061 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/DNSSECStatusFilter.h	2021-05-08 10:27:04.212451216 +0200
+@@ -5,7 +5,7 @@
+ #include "node.h"
+ 
+ #include <QtCore/QSignalMapper>
+-#include <QtGui/QPushButton>
++#include <QtWidgets/QPushButton>
+ 
+ class DNSSECStatusFilter : public Filter
+ {
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/Filter.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/Filter.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/Filter.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/Filter.h	2021-05-08 10:27:04.212451216 +0200
+@@ -2,7 +2,7 @@
+ #define FILTER_H
+ 
+ #include <QObject>
+-#include <QtGui/QHBoxLayout>
++#include <QtWidgets/QHBoxLayout>
+ 
+ #include "node.h"
+ #include <qdebug.h>
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/NameFilter.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/NameFilter.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/NameFilter.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/NameFilter.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -1,7 +1,7 @@
  #include "NameFilter.h"
  
@@ -278,8 +122,9 @@
  #include <qdebug.h>
  
  NameFilter::NameFilter(const QString &searchName, QObject *parent)
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/TypeFilter.cpp.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Filters/TypeFilter.cpp	2015-06-29 21:36:20.908644468 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/TypeFilter.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/TypeFilter.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/TypeFilter.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/TypeFilter.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -1,7 +1,7 @@
  #include "TypeFilter.h"
  
@@ -290,26 +135,21 @@
  
  #include <qdebug.h>
  
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/LogFilePicker.cpp.orig	2011-10-07 16:23:49.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/LogFilePicker.cpp	2015-06-29 21:43:27.271959910 +0200
-@@ -1,10 +1,10 @@
- #include "LogFilePicker.h"
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/TypeFilter.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/TypeFilter.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Filters/TypeFilter.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Filters/TypeFilter.h	2021-05-08 10:27:04.212451216 +0200
+@@ -4,7 +4,7 @@
+ #include "Filter.h"
+ #include "TypeMenu.h"
  
--#include <QtGui/QLabel>
 -#include <QtGui/QPushButton>
--#include <QtGui/QCheckBox>
--#include <QtGui/QDialogButtonBox>
--#include <QtGui/QFileDialog>
-+#include <QtWidgets/QLabel>
 +#include <QtWidgets/QPushButton>
-+#include <QtWidgets/QCheckBox>
-+#include <QtWidgets/QDialogButtonBox>
-+#include <QtWidgets/QFileDialog>
+ #include <QtCore/QSignalMapper>
  
- LogFilePicker::LogFilePicker(QString defaultFile, QWidget *parent) :
-     QDialog(parent)
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/Legend.cpp.orig	2012-10-25 06:36:17.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/Legend.cpp	2015-06-29 21:52:30.241937125 +0200
+ class TypeFilter : public Filter
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Legend.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Legend.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/Legend.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/Legend.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -1,14 +1,14 @@
  #include "Legend.h"
  
@@ -330,8 +170,47 @@
  
  #include <qdebug.h>
  
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/MainWindow.cpp.orig	2013-02-15 22:41:19.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/MainWindow.cpp	2015-06-29 21:53:47.315267221 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/LogFilePicker.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/LogFilePicker.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/LogFilePicker.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/LogFilePicker.cpp	2021-05-08 10:27:04.212451216 +0200
+@@ -1,10 +1,10 @@
+ #include "LogFilePicker.h"
+ 
+-#include <QtGui/QLabel>
+-#include <QtGui/QPushButton>
+-#include <QtGui/QCheckBox>
+-#include <QtGui/QDialogButtonBox>
+-#include <QtGui/QFileDialog>
++#include <QtWidgets/QLabel>
++#include <QtWidgets/QPushButton>
++#include <QtWidgets/QCheckBox>
++#include <QtWidgets/QDialogButtonBox>
++#include <QtWidgets/QFileDialog>
+ 
+ LogFilePicker::LogFilePicker(QString defaultFile, QWidget *parent) :
+     QDialog(parent)
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/LogFilePicker.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/LogFilePicker.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/LogFilePicker.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/LogFilePicker.h	2021-05-08 10:27:04.212451216 +0200
+@@ -2,11 +2,11 @@
+ #define LOGFILEPICKER_H
+ 
+ #include <QDialog>
+-#include <QtGui/QHBoxLayout>
+-#include <QtGui/QVBoxLayout>
+-#include <QtGui/QLineEdit>
++#include <QtWidgets/QHBoxLayout>
++#include <QtWidgets/QVBoxLayout>
++#include <QtWidgets/QLineEdit>
+ #include <QtCore/QString>
+-#include <QtGui/QCheckBox>
++#include <QtWidgets/QCheckBox>
+ 
+ class LogFilePicker : public QDialog
+ {
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/MainWindow.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/MainWindow.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/MainWindow.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/MainWindow.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -1,6 +1,6 @@
  #include "MainWindow.h"
  
@@ -340,22 +219,69 @@
  
  #include "NodeList.h"
  #include "LogWatcher.h"
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/FilterEditorWindow.cpp.orig	2013-02-14 15:43:03.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/FilterEditorWindow.cpp	2015-06-29 21:54:30.511932075 +0200
-@@ -1,8 +1,8 @@
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/MainWindow.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/MainWindow.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/MainWindow.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/MainWindow.h	2021-05-08 10:27:04.212451216 +0200
+@@ -2,10 +2,10 @@
+ #define MAINWINDOW_H
+ 
+ #include <QMainWindow>
+-#include <QtGui/QVBoxLayout>
+-#include <QtGui/QLineEdit>
+-#include <QtGui/QMenuBar>
+-#include <QtGui/QTabWidget>
++#include <QtWidgets/QVBoxLayout>
++#include <QtWidgets/QLineEdit>
++#include <QtWidgets/QMenuBar>
++#include <QtWidgets/QTabWidget>
+ 
+ #include "graphwidget.h"
+ #include "TypeMenu.h"
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/NodeList.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/NodeList.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/NodeList.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/NodeList.h	2021-05-08 10:27:04.212451216 +0200
+@@ -10,7 +10,7 @@
+ #include "Filters/Filter.h"
  #include "FilterEditorWindow.h"
  
--#include <QtGui/QLabel>
--#include <QtGui/QDialogButtonBox>
--#include <QtGui/QGroupBox>
-+#include <QtWidgets/QLabel>
-+#include <QtWidgets/QDialogButtonBox>
-+#include <QtWidgets/QGroupBox>
+-#include <QtGui/QHBoxLayout>
++#include <QtWidgets/QHBoxLayout>
  
- FilterEditorWindow::FilterEditorWindow(NodeList *nodeList, QWidget *parent) :
-     QDialog(parent), m_nodeList(nodeList)
---- dnssec-tools-2.1/validator/apps/dnssec-nodes/PcapWatcher.cpp.orig	2014-08-15 22:20:16.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-nodes/PcapWatcher.cpp	2015-06-30 18:03:22.995554842 +0200
+ class GraphWidget;
+ class DNSData;
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/NodesPreferences.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/NodesPreferences.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/NodesPreferences.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/NodesPreferences.cpp	2021-05-08 10:27:04.212451216 +0200
+@@ -1,6 +1,6 @@
+ #include "NodesPreferences.h"
+ 
+-#include <QtGui/QDialogButtonBox>
++#include <QtWidgets/QDialogButtonBox>
+ 
+ NodesPreferences::NodesPreferences(QSettings *settings, QWidget *parent) :
+     QDialog(parent), m_settings(settings)
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/NodesPreferences.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/NodesPreferences.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/NodesPreferences.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/NodesPreferences.h	2021-05-08 10:27:04.212451216 +0200
+@@ -2,11 +2,11 @@
+ #define NODESPREFERENCES_H
+ 
+ #include <QDialog>
+-#include <QtGui/QVBoxLayout>
+-#include <QtGui/QFormLayout>
+-#include <QtGui/QSpinBox>
++#include <QtWidgets/QVBoxLayout>
++#include <QtWidgets/QFormLayout>
++#include <QtWidgets/QSpinBox>
+ #include <QtCore/QSettings>
+-#include <QtGui/QCheckBox>
++#include <QtWidgets/QCheckBox>
+ 
+ class NodesPreferences : public QDialog
+ {
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/PcapWatcher.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/PcapWatcher.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/PcapWatcher.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/PcapWatcher.cpp	2021-05-08 10:27:04.212451216 +0200
 @@ -10,7 +10,7 @@
  #ifndef __MINGW_GCC
  #include <arpa/inet.h>
@@ -365,8 +291,102 @@
  #include <QFileDialog>
  
  typedef u_int32_t tcp_seq;
---- dnssec-tools-2.1/validator/apps/dnssec-system-tray/dnssec-system-tray.h.orig	2014-08-28 20:26:59.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-system-tray/dnssec-system-tray.h	2015-06-30 21:06:15.311761043 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/TypeMenu.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/TypeMenu.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/TypeMenu.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/TypeMenu.h	2021-05-08 10:27:04.212451216 +0200
+@@ -2,9 +2,9 @@
+ #define TYPEMENU_H
+ 
+ #include <QObject>
+-#include <QtGui/QMenu>
++#include <QtWidgets/QMenu>
+ #include <QtCore/QSignalMapper>
+-#include <QtGui/QPushButton>
++#include <QtWidgets/QPushButton>
+ 
+ class TypeMenu : public QObject
+ {
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/dnssec-nodes.pro DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/dnssec-nodes.pro
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/dnssec-nodes.pro	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/dnssec-nodes.pro	2021-05-08 10:27:04.212451216 +0200
+@@ -1,3 +1,4 @@
++PREFIX=/usr
+ HEADERS += \
+         edge.h \
+         node.h \
+@@ -70,7 +71,7 @@ INCLUDEPATH += ../../include
+ isEmpty(ANDROID_PLATFORM) {
+     QMAKE_LIBDIR     += ../../libval/.libs
+     QMAKE_LIBDIR     += ../../libsres/.libs
+-    LIBS        += -lval-threads -lsres -lnsl -lcrypto -lssl -lpthread
++    LIBS        += -lval-threads -lsres -lcrypto -lpthread
+     contains(MEEGO_EDITION,harmattan): {
+         QMAKE_LIBDIR += /scratchbox/users/hardaker/targets/HARMATTAN_ARMEL/usr/lib
+     } else:osx {
+@@ -93,8 +94,6 @@ isEmpty(ANDROID_PLATFORM) {
+ # path to the harmattan libraries
+ contains(MEEGO_EDITION,harmattan): {
+     LIBS += -L/scratchbox/users/hardaker/targets/HARMATTAN_ARMEL/usr/lib
+-} else {
+-    LIBS += -L/usr/local/lib
+ }
+ 
+ QT += network widgets core
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/node.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/node.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-nodes/node.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-nodes/node.h	2021-05-08 10:27:04.212451216 +0200
+@@ -41,7 +41,7 @@
+ #ifndef NODE_H
+ #define NODE_H
+ 
+-#include <QtGui/QGraphicsItem>
++#include <QtWidgets/QGraphicsItem>
+ #include <QtCore/QList>
+ #include <QtCore/QSet>
+ 
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.cpp	2021-05-08 10:27:04.215784622 +0200
+@@ -1,10 +1,10 @@
+ #include "DnssecSystemTrayPrefs.h"
+ 
+ #include <QtCore/QSettings>
+-#include <QtGui/QDialogButtonBox>
+-#include <QtGui/QPushButton>
+-#include <QtGui/QFileDialog>
+-#include <QtGui/QLabel>
++#include <QtWidgets/QDialogButtonBox>
++#include <QtWidgets/QPushButton>
++#include <QtWidgets/QFileDialog>
++#include <QtWidgets/QLabel>
+ #include <QtGui/QFont>
+ 
+ DnssecSystemTrayPrefs::DnssecSystemTrayPrefs(QWidget *parent) :
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.h	2021-05-08 10:27:04.212451216 +0200
+@@ -4,12 +4,12 @@
+ #define QT_NO_PRINTER
+ 
+ #include <QDialog>
+-#include <QtGui/QVBoxLayout>
+-#include <QtGui/QFormLayout>
+-#include <QtGui/QLineEdit>
+-#include <QtGui/QSpinBox>
+-#include <QtGui/QCheckBox>
+-#include <QtGui/QTextEdit>
++#include <QtWidgets/QVBoxLayout>
++#include <QtWidgets/QFormLayout>
++#include <QtWidgets/QLineEdit>
++#include <QtWidgets/QSpinBox>
++#include <QtWidgets/QCheckBox>
++#include <QtWidgets/QTextEdit>
+ 
+ class DnssecSystemTrayPrefs : public QDialog
+ {
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/dnssec-system-tray.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/dnssec-system-tray.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/dnssec-system-tray.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/dnssec-system-tray.h	2021-05-08 10:27:04.212451216 +0200
 @@ -45,10 +45,10 @@
  
  #include <QSystemTrayIcon>
@@ -390,70 +410,30 @@
  
  class DNSTrayData {
  public:
---- dnssec-tools-2.1/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.h.orig	2014-08-28 20:26:59.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.h	2015-07-01 16:07:25.758887612 +0200
-@@ -4,12 +4,12 @@
- #define QT_NO_PRINTER
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/dnssec-system-tray.pro DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/dnssec-system-tray.pro
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/dnssec-system-tray/dnssec-system-tray.pro	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/dnssec-system-tray/dnssec-system-tray.pro	2021-05-08 10:27:04.212451216 +0200
+@@ -1,3 +1,4 @@
++PREFIX=/usr
+ TARGET=dnssec-system-tray
  
- #include <QDialog>
--#include <QtGui/QVBoxLayout>
--#include <QtGui/QFormLayout>
--#include <QtGui/QLineEdit>
--#include <QtGui/QSpinBox>
--#include <QtGui/QCheckBox>
--#include <QtGui/QTextEdit>
-+#include <QtWidgets/QVBoxLayout>
-+#include <QtWidgets/QFormLayout>
-+#include <QtWidgets/QLineEdit>
-+#include <QtWidgets/QSpinBox>
-+#include <QtWidgets/QCheckBox>
-+#include <QtWidgets/QTextEdit>
- 
- class DnssecSystemTrayPrefs : public QDialog
- {
---- dnssec-tools-2.1/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.cpp.orig	2012-01-20 19:53:52.000000000 +0100
-+++ dnssec-tools-2.1/validator/apps/dnssec-system-tray/DnssecSystemTrayPrefs.cpp	2015-07-01 16:08:09.728885767 +0200
-@@ -1,10 +1,10 @@
- #include "DnssecSystemTrayPrefs.h"
- 
- #include <QtCore/QSettings>
--#include <QtGui/QDialogButtonBox>
--#include <QtGui/QPushButton>
--#include <QtGui/QFileDialog>
--#include <QtGui/QLabel>
-+#include <QtWidgets/QDialogButtonBox>
-+#include <QtWidgets/QPushButton>
-+#include <QtWidgets/QFileDialog>
-+#include <QtWidgets/QLabel>
- #include <QtGui/QFont>
- 
- DnssecSystemTrayPrefs::DnssecSystemTrayPrefs(QWidget *parent) :
---- dnssec-tools-2.1/validator/apps/lookup/src/qtmain.cpp.orig	2014-08-26 19:09:59.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/lookup/src/qtmain.cpp	2015-07-01 16:42:27.378799415 +0200
-@@ -3,8 +3,8 @@
-  * Author: hardaker
-  */
- #include <QWidget>
--#include <QtGui/QApplication>
--#include <QtGui/QPushButton>
-+#include <QtWidgets/QApplication>
-+#include <QtWidgets/QPushButton>
- 
- #include "lookup.h"
- 
---- dnssec-tools-2.1/validator/apps/lookup/src/QDNSItemModel.h.orig	2011-05-18 22:15:55.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/lookup/src/QDNSItemModel.h	2015-07-01 16:43:11.965464211 +0200
+ HEADERS       = dnssec-system-tray.h \
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/LookupPrefs.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/LookupPrefs.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/LookupPrefs.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/LookupPrefs.cpp	2021-05-08 10:27:04.215784622 +0200
 @@ -1,7 +1,7 @@
- #ifndef QDNSITEMMODEL_H
- #define QDNSITEMMODEL_H
- 
+ #include <QWidget>
+ #include "LookupPrefs.h"
 -#include <QtGui/QWidget>
+-#include <QtGui/QDialogButtonBox>
 +#include <QtWidgets/QWidget>
- #include <QtGui/QStandardItemModel>
- 
- #if (defined(Q_WS_MAEMO_5) || defined(MAEMO_CHANGES))
---- dnssec-tools-2.1/validator/apps/lookup/src/LookupPrefs.h.orig	2014-08-26 19:09:59.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/lookup/src/LookupPrefs.h	2015-07-01 16:43:40.142129695 +0200
++#include <QtWidgets/QDialogButtonBox>
+ #include <QtCore/QSettings>
+ LookupPrefs::LookupPrefs(QWidget *parent) :
+     QDialog(parent)
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/LookupPrefs.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/LookupPrefs.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/LookupPrefs.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/LookupPrefs.h	2021-05-08 10:27:04.215784622 +0200
 @@ -2,9 +2,9 @@
  #define LOOKUPPREFS_H
  
@@ -467,15 +447,66 @@
  #include <QWidget>
  
  class LookupPrefs : public QDialog
---- dnssec-tools-2.1/validator/apps/lookup/src/LookupPrefs.cpp.orig	2014-08-26 19:09:59.000000000 +0200
-+++ dnssec-tools-2.1/validator/apps/lookup/src/LookupPrefs.cpp	2015-07-01 16:47:07.335454333 +0200
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/QDNSItemModel.h DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/QDNSItemModel.h
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/QDNSItemModel.h	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/QDNSItemModel.h	2021-05-08 10:27:04.215784622 +0200
 @@ -1,7 +1,7 @@
- #include <QWidget>
- #include "LookupPrefs.h"
+ #ifndef QDNSITEMMODEL_H
+ #define QDNSITEMMODEL_H
+ 
 -#include <QtGui/QWidget>
--#include <QtGui/QDialogButtonBox>
 +#include <QtWidgets/QWidget>
-+#include <QtWidgets/QDialogButtonBox>
- #include <QtCore/QSettings>
- LookupPrefs::LookupPrefs(QWidget *parent) :
-     QDialog(parent)
+ #include <QtGui/QStandardItemModel>
+ 
+ #if (defined(Q_WS_MAEMO_5) || defined(MAEMO_CHANGES))
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/qtmain.cpp DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/qtmain.cpp
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/qtmain.cpp	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/qtmain.cpp	2021-05-08 10:27:04.215784622 +0200
+@@ -3,8 +3,8 @@
+  * Author: hardaker
+  */
+ #include <QWidget>
+-#include <QtGui/QApplication>
+-#include <QtGui/QPushButton>
++#include <QtWidgets/QApplication>
++#include <QtWidgets/QPushButton>
+ 
+ #include "lookup.h"
+ 
+diff -urNp -x '*.orig' DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/src.pro DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/src.pro
+--- DNSSEC-Tools-dnssec-tools-2.2.3.org/validator/apps/lookup/src/src.pro	2018-08-30 00:25:30.000000000 +0200
++++ DNSSEC-Tools-dnssec-tools-2.2.3/validator/apps/lookup/src/src.pro	2021-05-08 10:27:04.212451216 +0200
+@@ -11,7 +11,7 @@ INCLUDEPATH += ../../../include
+ INCLUDEPATH += /home/hardaker/src/dnssec/dnssec-tools.git/dnssec-tools/validator/include
+ 
+ isEmpty(ANDROID_PLATFORM) {
+-    LIBS        += -lval-threads -lsres -lnsl -lssl -lcrypto -lpthread
++    LIBS        += -L../../../libval/.libs -L../../../libsres/.libs -lval-threads -lsres -lcrypto -lpthread
+ } else {
+     LIBS        += -L/opt/android-external-openssl/lib/
+     LIBS        += -L/root/necessitas/android-ndk-r5c/platforms/android-4/arch-arm/usr/lib/
+@@ -63,7 +63,7 @@ QMAKE_EXTRA_TARGETS += debian-all debian
+ unix {
+     #VARIABLES
+     isEmpty(PREFIX) {
+-        PREFIX = /usr/local
++        PREFIX = /usr
+     }
+ 
+ BINDIR = $$PREFIX/bin
+@@ -77,13 +77,13 @@ INSTALLS += target desktop service iconx
+ 
+   target.path =$$BINDIR
+ 
+-  desktop.path = $$DATADIR/applications/hildon
++  desktop.path = $$DATADIR/applications
+   desktop.files += $${TARGET}.desktop
+ 
+   service.path = $$DATADIR/dbus-1/services
+   service.files += $${TARGET}.service
+ 
+-  iconxpm.path = $$DATADIR/pixmap
++  iconxpm.path = $$DATADIR/pixmaps
+   iconxpm.files += ../data/maemo/$${TARGET}.xpm
+ 
+   icon26.path = $$DATADIR/icons/hicolor/26x26/apps
