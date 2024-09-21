@@ -11,12 +11,13 @@ Version:	2.2.3
 Release:	9
 License:	BSD
 Group:		Applications/Networking
-Source0:	https://github.com/DNSSEC-Tools/DNSSEC-Tools/archive/dnssec-tools-2.2.3.tar.gz
+#Source0Download: https://github.com/DNSSEC-Tools/DNSSEC-Tools/releases
+Source0:	https://github.com/DNSSEC-Tools/DNSSEC-Tools/archive/%{name}-%{version}.tar.gz
 # Source0-md5:	235bfa9bf059b2f5502db2877444646b
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-qt.patch
 Patch2:		build.patch
-URL:		http://www.dnssec-tools.org/
+URL:		https://dnssec-tools.org/
 BuildRequires:	openssl-devel
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	perl-Net-DNS
@@ -149,6 +150,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 cd dnssec-tools
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
