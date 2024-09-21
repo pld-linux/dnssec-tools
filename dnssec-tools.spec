@@ -26,6 +26,7 @@ BuildRequires:	perl-TimeDate
 BuildRequires:	perl-base
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with qt}
 BuildRequires:	Qt5Core-devel >= 5
 BuildRequires:	Qt5Declarative-devel >= 5
